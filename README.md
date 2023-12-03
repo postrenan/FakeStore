@@ -1,7 +1,10 @@
+FakeStore app
+------------
+
 Projeto FakeStore feito como um desafio, no projeto utilizei Vue.js 3, TypeScript e Tailwind.
 O projeto consiste em fazer requisições para a Fake Store API para consumir os produtos, atualizar e deleta-los.
 Seguem imagens do projeto
-------------------------------
+
 FakeStore project done as a challenge, in the project I used Vue.js 3, TypeScript and Tailwind.
 The project consists of making requests to the Fake Store API to consume products, update and delete them.
 Below are images of the project
