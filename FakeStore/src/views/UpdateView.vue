@@ -7,16 +7,22 @@
           Atualizar Produto
         </h2>
         <form class="mt-8 space-y-6" @submit.prevent="update">
+          <label class="block text-sm font-medium text-gray-700" for="id">ID do Produto</label>
           <input v-model="idProduct" class="block w-full p-2 border border-gray-300 rounded-md" placeholder="ID do Produto"
-                 type="number">
+                 type="number" min="0">
+          <label class="block text-sm font-medium text-gray-700" for="titulo">Título</label>
           <input v-model="title" class="block w-full p-2 border border-gray-300 rounded-md" placeholder="Título"
                  type="text">
+          <label class="block text-sm font-medium text-gray-700" for="preco">Preço</label>
           <input v-model="price" class="block w-full p-2 border border-gray-300 rounded-md" placeholder="Preço"
-                 type="text">
+                 type="text" min="0">
+          <label class="block text-sm font-medium text-gray-700" for="descrição">descrição</label>
           <input v-model="description" class="block w-full p-2 border border-gray-300 rounded-md" placeholder="Descrição"
                  type="text">
+          <label class="block text-sm font-medium text-gray-700" for="image">Imagem (URL)</label>
           <input v-model="image" class="block w-full p-2 border border-gray-300 rounded-md" placeholder="URL da Imagem"
                  type="text">
+          <label class="block text-sm font-medium text-gray-700" for="categoria">Categoria</label>
           <input v-model="category" class="block w-full p-2 border border-gray-300 rounded-md" placeholder="Categoria"
                  type="text">
           <button class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -30,6 +36,7 @@
           Deletar Produto
         </h2>
         <form class="mt-8 space-y-6" @submit.prevent="deletar">
+          <label class="block text-sm font-medium text-gray-700" for="id">Coloque o ID</label>
           <input v-model="idProduct" class="block w-full p-2 border border-gray-300 rounded-md" placeholder="ID do Produto"
                  type="number">
           <button class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
@@ -120,21 +127,34 @@ export default defineComponent({
           })
           .catch((error) => {
             setTimeout(() => {
-              alert(error)
+              this.showModal = true;
+              this.errorMessage = error;
             }, 500);
             return;
           });
     },
     update: function () {
+      let productToUpdate: any = {};
+
+      if (this.title !== '') {
+        productToUpdate.title = this.title;
+      }
+      if (this.price !== '' && this.price > 0) {
+        productToUpdate.price = this.price;
+      }
+      if (this.category !== '') {
+        productToUpdate.category = this.category;
+      }
+      if (this.description !== '') {
+        productToUpdate.description = this.description;
+      }
+      if (this.image !== '') {
+        productToUpdate.image = this.image;
+      }
+
       fetch(`https://fakestoreapi.com/products/${this.idProduct}`, {
         method: 'PUT',
-        body: JSON.stringify({
-          title: this.title,
-          price: this.price,
-          description: this.description,
-          image: this.image,
-          category: this.category,
-        }),
+        body: JSON.stringify(productToUpdate),
       })
           .then((res) => {
             setTimeout(() => {
@@ -150,7 +170,8 @@ export default defineComponent({
           })
           .catch((error) => {
             setTimeout(() => {
-              alert(error)
+              this.showModal = true;
+              this.errorMessage = error;
             }, 500);
             return;
           });

@@ -3,7 +3,7 @@
   <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Atualizar Produto
+        Criar Produto
       </h2>
       <form class="space-y-4" @submit.prevent="create">
         <div>
@@ -14,7 +14,7 @@
         <div>
           <label class="block text-sm font-medium text-gray-700" for="price">Preço</label>
           <input id="price" v-model="price" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required
-                 type="number">
+                 type="number" min="0">
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700" for="category">Categoria</label>
